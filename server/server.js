@@ -23,9 +23,13 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", async (req, res) => {
-    const result = await db.query("SELECT * FROM users");
-    console.log(result.rows);
-    res.sendStatus(200);
+    try {
+        const result = await db.query("SELECT username, name, email_id FROM users");
+        res.json(result.rows); 
+    } catch (error) {
+        console.error("Error fetching users: ", error);
+        res.status(500).json({error: "Internal Server Error"});
+    }
 });
 
 app.listen(port, () => {
