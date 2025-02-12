@@ -1,5 +1,12 @@
+/* General Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
   background-color: #1a1a2e;
   color: white;
   display: flex;
@@ -8,22 +15,61 @@ body {
   height: 100vh;
 }
 
+/* Container */
 .register-container {
   background: #16213e;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
-  width: 300px;
+  width: 350px;
   text-align: center;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  color: #b2b2b2;
+  margin-bottom: 20px;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 input {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0;
+  padding: 10px;
+  margin-bottom: 10px;
   border-radius: 5px;
   border: none;
+  background: #0f3460;
+  color: white;
 }
 
+input:focus {
+  outline: 2px solid #e94560;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+}
+
+/* Submit Button */
 button {
   background: #e94560;
   color: white;
@@ -31,10 +77,63 @@ button {
   padding: 10px;
   width: 100%;
   cursor: pointer;
+  font-size: 16px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 
-.error {
-  color: red;
+button:hover {
+  background: #d13450;
+}
+
+/* Divider */
+.divider {
+  margin: 20px 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Social Login Buttons */
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.social-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.social-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Footer Links */
+.footer-links {
+  display: flex;
+  justify-content: space-between;
   font-size: 12px;
+  margin-top: 15px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }
