@@ -2,25 +2,30 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import pg from "pg";
+import session from "express-session";
+import passport from "./config/passport.js";
+
+import db from "./config/db.js";
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
 
-const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT
-});
-
 db.connect();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", async (req, res) => {
     try {
@@ -31,6 +36,18 @@ app.get("/", async (req, res) => {
         res.status(500).json({error: "Internal Server Error"});
     }
 });
+
+//To check if sessions are working
+app.get("/check", (req, res) => {
+    if(req.isAuthenticated()) {
+        console.log("Authenticated!!");
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(401);
+    }
+});
+
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
