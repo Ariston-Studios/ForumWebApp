@@ -8,7 +8,7 @@ const saltRounds = 10;
 
 db.connect();
 
-export const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => { 
     const username = req.body.username;
     const name = req.body.name;
     const email = req.body.email;
@@ -29,7 +29,7 @@ export const registerUser = async (req, res) => {
                         [username, name, email, hash]
                     );
                     console.log(result.rows);
-                    res.statusStatus(200).json({ info: "User successfully registered!" });
+                    res.json({ info: "User successfully registered!" });
                 }
             });
         }

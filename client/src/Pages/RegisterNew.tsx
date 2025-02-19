@@ -1,15 +1,15 @@
-import BorderlessForm from "../components/BorderlessForm";
+import RegisterForm from "../components/RegisterForm";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import SignInWithButton from "../components/SignInWithButton";
 
 function Register() {
   return (
-    <div className="bg-white dark:bg-linear-to-b dark:from-gray-800 from-25% dark:to-fuchsia-950 dark:text-white">
+    <div className="bg-white dark:bg-linear-to-b dark:from-gray-900 from-25% dark:to-fuchsia-950 dark:text-white">
       <Header />
       <div className="h-dvh flex flex-col justify-center">
         <div className="mx-auto mb-20">
-          <h1 className=" text-xl sm:text-2xl md:text-4xl font-playwrite my-2">
+          <h1 className=" text-xl sm:text-2xl md:text-4xl font-mono my-2">
             Create Your [<span className="text-fuchsia-600">Forum</span>]
             Account Now
           </h1>
@@ -17,13 +17,14 @@ function Register() {
             to get 1% smarter every day.
           </p>
         </div>
-        <div className="grid grid-cols-2 divide-x-4 divide-fuchsia-200">
+        <div className="grid grid-cols-2">
           <div className="col-span-1">
           <h1 className="text-white mx-auto text-3xl font-playwrite text-center">
               Register
             </h1>
-            <BorderlessForm />
+            <RegisterForm />
           </div>
+          <div className="absolute left-1/2 rotate-12 bg-fuchsia-400 h-90 w-1 rounded-xl"></div>
           <div className="col-span-1 flex flex-col">
             <h1 className="text-white mx-auto text-3xl font-playwrite text-center">
               Login With
