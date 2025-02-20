@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Register from "./pages/Register.tsx";
+import Register from "./Pages/RegisterNew.tsx";
 
 function App() {
   return (
