@@ -30,7 +30,7 @@ function Register() {
               Login With
             </h1>
             <div className="justify-center my-auto">
-              <SignInWithButton imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google"/>
+              <SignInWithButton pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google"/>
               <SignInWithButton imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Login with GitHub"/>
               <SignInWithButton imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" text="Login with Apple"/>
             </div>
