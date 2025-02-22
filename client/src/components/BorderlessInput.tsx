@@ -5,6 +5,7 @@ function BorderlessInput(props: any) {
         className={`peer w-full h-10 border-b-2 border-gray-500 focus:outline-none focus:border-b-2 focus:border-green-400`}
         name={props.name}
         type={props.type}
+        onChange={props.onChange}
         placeholder=" "
         required
       />
