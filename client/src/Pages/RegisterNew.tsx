@@ -5,19 +5,19 @@ import SignInWithButton from "../components/SignInWithButton";
 
 function Register() {
   return (
-    <div className="bg-white dark:bg-linear-to-b dark:from-gray-800 from-25% dark:to-fuchsia-950 dark:text-white">
+    <div className="bg-white dark:bg-linear-to-b dark:from-gray-800 from-25% dark:to-green-950 dark:text-white">
       <Header />
       <div className="h-dvh flex flex-col justify-center">
-        <div className="mx-auto mb-20">
-          <h1 className=" text-xl sm:text-2xl md:text-4xl font-playwrite my-2">
-            Create Your [<span className="text-fuchsia-600">Forum</span>]
+        <div className="my-8 mx-auto mb-20">
+          <h1 className=" text-xlsm:text-xl md:text-3xl font-playwrite my-2">
+            Create Your [<span className="text-green-400">Forum</span>]
             Account Now
           </h1>
           <p className="text-center text-gray-400">
             to get 1% smarter every day.
           </p>
         </div>
-        <div className="grid grid-cols-2 divide-x-4 divide-fuchsia-200">
+        <div className="grid grid-cols-2 divide-x-4 divide-green-400">
           <div className="col-span-1">
           <h1 className="text-white mx-auto text-3xl font-playwrite text-center">
               Register

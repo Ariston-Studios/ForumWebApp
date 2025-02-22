@@ -5,7 +5,7 @@ import Login from "./Pages/Login.tsx";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Register />} />
     </Routes>
   );
 }

@@ -2,7 +2,7 @@ import Logo from "./Logo";
 
 function Header() {
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 divide-solid divide-fuchsia-600 dark:text-white">
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 divide-solid divide-green-400 dark:text-white">
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Logo />
         <div className="hidden w-full md:block md:w-1/3 mx-auto" id="navbar-default">
@@ -17,8 +17,8 @@ function Header() {
             </ul>
         </div>
         <div className="hidden md:block font-bold">
-            <button className="mx-2 cursor-pointer p-1 hover:border-b-4 hover:border-b-fuchsia-600">Login</button>
-            <button className="mx-2 cursor-pointer text-fuchsia-600 p-1 border-b-4 border-b-fuchsia-600">Register</button>
+            <button className="mx-2 cursor-pointer p-1 hover:border-b-4 hover:border-b-green-400">Login</button>
+            <button className="mx-2 cursor-pointer text-green-400 p-1 border-b-4 border-b-green-400">Register</button>
         </div>
       </div>
     </nav>

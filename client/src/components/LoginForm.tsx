@@ -7,7 +7,7 @@ function BorderlessFormLog() {
       <BorderlessInput colSpan="2" name="username/Email" type="text" label="Username/Email"/>
       <BorderlessInput colSpan="2" name="password" type="password" label="Password"/>
       <BorderlessInput colSpan="2" name="conf-password" type="password" label="Confirm Password"/>
-      <button className="outline outline-fuchsia-600 hover:bg-fuchsia-600 hover:cursor-pointer transition-all delay-100 col-span-2 mt-4 h-8 rounded-md" type="submit"> Submit </button>
+      <button className="outline outline-green-400 hover:bg-green-400 hover:cursor-pointer hover:text-black hover:font-bold transition-all delay-100 col-span-2 mt-4 h-8 rounded-md" type="submit"> Submit </button>
     </form>
   );
 }

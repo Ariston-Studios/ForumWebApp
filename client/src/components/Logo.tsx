@@ -3,7 +3,7 @@ function Logo() {
     <a href="">
       <img src="" alt="" />
       <p className="font-playwrite text-2xl font-extrabold">
-        [<span className="text-fuchsia-600">Forum</span>]
+        [<span className="text-green-400">Forum</span>]
       </p>
     </a>
   );
