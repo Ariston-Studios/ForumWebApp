@@ -5,7 +5,7 @@ import SetUsername from "./Pages/SetUsername.tsx";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Register />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/set-username" element={<SetUsername />} />
     </Routes>
   );

@@ -1,6 +1,25 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 
 function Header() {
+  const [currentState, setCurrentState] = useState("register");
+  const navigate = useNavigate();
+
+  function handleLoginClick() {
+    if (currentState === "register") {
+      setCurrentState("login");
+      navigate("/login");
+    }
+  }
+  
+  function handleRegClick() {
+    if (currentState === "login") {
+      setCurrentState("register");
+      navigate("/register");
+    } 
+  }  
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 divide-solid divide-fuchsia-600 dark:text-white">
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -17,8 +36,8 @@ function Header() {
             </ul>
         </div>
         <div className="hidden md:block font-bold">
-            <button className="mx-2 cursor-pointer p-1 hover:border-b-4 hover:border-b-fuchsia-600">Login</button>
-            <button className="mx-2 cursor-pointer text-fuchsia-600 p-1 border-b-4 border-b-fuchsia-600">Register</button>
+            <button onClick={handleLoginClick} className={`mx-2 cursor-pointer ${currentState === "login" ? "text-fuchsia-600 p-1 border-b-4 border-b-fuchsia-600" : "p-1 hover:border-b-4 hover:border-b-fuchsia-600"}`}>Login</button>
+            <button onClick={handleRegClick} className={`mx-2 cursor-pointer ${currentState === "register" ? "text-fuchsia-600 p-1 border-b-4 border-b-fuchsia-600" : "p-1 hover:border-b-4 hover:border-b-fuchsia-600"}`}>Register</button>
         </div>
       </div>
     </nav>
