@@ -70,7 +70,7 @@ function BorderlessForm() {
         onChange={handleChange}
       />
       <button
-        className="outline outline-fuchsia-600 hover:bg-fuchsia-600 hover:cursor-pointer transition-all delay-100 col-span-2 mt-4 h-8 rounded-md"
+        className="outline outline-green-600 hover:bg-green-600 hover:cursor-pointer transition-all delay-100 col-span-2 mt-4 h-8 rounded-md"
         type="submit"
       >
         

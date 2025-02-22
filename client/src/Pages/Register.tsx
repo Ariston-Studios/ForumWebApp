@@ -10,7 +10,7 @@ function Register() {
       <div className="h-dvh flex flex-col justify-center">
         <div className="mx-auto mb-20">
           <h1 className=" text-xl sm:text-2xl md:text-4xl font-mono my-2">
-            Create Your [<span className="text-fuchsia-600">Forum</span>]
+            Create Your [<span className="text-green-600">Forum</span>]
             Account Now
           </h1>
           <p className="text-center text-gray-400">

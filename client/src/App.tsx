@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Register from "./Pages/RegisterNew.tsx";
+import Register from "./Pages/Register.tsx";
 import Login from "./Pages/Login.tsx";
 import SetUsername from "./Pages/SetUsername.tsx";
 
