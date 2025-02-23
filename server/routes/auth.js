@@ -31,23 +31,23 @@ router.get("/google/dashboard",
 router.post("/set-username", async (req, res) => {
     const { email, username, name } = req.body;
 
-    if(!email || !username) {
-        return res.status(400).json({success: false, message: "Missing username or email"});
+    if (!email || !username) {
+        return res.status(400).json({ success: false, message: "Missing username or email" });
     }
 
     try {
         const checkUsername = await db.query("SELECT * FROM users WHERE username = $1", [username])
 
-        if(checkUsername.rows.length > 0) {
-            return res.status(400).json({success: false, message: "Username already taken"});
+        if (checkUsername.rows.length > 0) {
+            return res.status(400).json({ success: false, message: "Username already taken" });
         }
 
         await db.query("INSERT INTO users (username, name, email_id, password_hash) VALUES ($1, $2, $3, $4)", [username, name, email, "google"]);
 
-        res.json({success: true });
+        res.json({ success: true });
     } catch (error) {
         console.log(error);
-        res.status(500).json({success: false, message: "Internal Server Error"});
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 });
 

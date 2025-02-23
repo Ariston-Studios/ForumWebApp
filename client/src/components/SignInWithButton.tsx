@@ -1,10 +1,5 @@
 function SignInWithButton(props: any) {
-  console.log(props);
-  
-
   function handleLogin() {
-    // console.log(props.pathURL);
-    
     window.location.href = import.meta.env.VITE_API_URL + `${props.pathURL}`;
   }
   
