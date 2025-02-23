@@ -7,6 +7,7 @@ import passport from "./config/passport.js";
 
 import db from "./config/db.js";
 import authRoutes from './routes/auth.js';
+import answerRoutes from './routes/answer.js';
 
 dotenv.config();
 
@@ -49,7 +50,9 @@ app.get("/check", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/answers",answerRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
