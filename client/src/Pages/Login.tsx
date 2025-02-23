@@ -1,7 +1,7 @@
 import BorderlessFormLog from "../components/LoginForm";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Loginlogos from "../components/Loginlogo";
+import ButtonWithImage from "../components/ButtonWithImage";
 
 function Login() {
   return (
@@ -12,9 +12,9 @@ function Login() {
           <h1 className="text-center font-open-sans font-bold text-3xl">Login</h1>
           <BorderlessFormLog />
           <div className="flex justify-around my-5">
-            <Loginlogos pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" />
-            <Loginlogos imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" />
-            <Loginlogos imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" />
+            <ButtonWithImage circular={true} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" />
+            <ButtonWithImage circular={true} imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" />
+            <ButtonWithImage circular={true} imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" />
           </div>
         </div>
       </div>
