@@ -1,11 +1,11 @@
 import RegisterForm from "../components/RegisterForm";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import SignInWithButton from "../components/SignInWithButton";
+import ButtonWithImage from "../components/ButtonWithImage";
 
 function Register() {
   return (
-    <div className="bg-white dark:bg-linear-to-b dark:from-gray-800 from-25% dark:to-green-950 dark:text-white">
+    <div className="bg-white dark:bg-linear-to-b dark:from-gray-950 from-25% dark:to-green-950 dark:text-white">
       <Header />
       <div className="h-dvh flex flex-col justify-center">
         <div className="mx-auto mb-20">
@@ -29,9 +29,9 @@ function Register() {
               Login With
             </h1>
             <div className="justify-center my-auto">
-              <SignInWithButton pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google"/>
-              <SignInWithButton imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Login with GitHub"/>
-              <SignInWithButton imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" text="Login with Apple"/>
+              <ButtonWithImage circular={false} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google"/>
+              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Login with GitHub"/>
+              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" text="Login with Apple"/>
             </div>
           </div>
         </div>

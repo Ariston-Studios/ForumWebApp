@@ -18,7 +18,7 @@ function Header() {
   }  
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 divide-solid divide-green-400 dark:text-white">
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-950 divide-solid divide-green-400 dark:text-white">
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Logo />
         <div className="hidden w-full md:flex md:w-1/3 mx-auto justify-center" id="navbar-default">

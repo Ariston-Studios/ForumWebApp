@@ -4,13 +4,18 @@ import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import db from "./db.js";
 
+function isEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
 passport.use(new Strategy(
-    {
-        usernameField: "email",
-    },
+    // {
+    //     usernameField: "email",
+    // },
     async function verify(username, password, cb) {
         try {
-            const result = await db.query("SELECT * FROM users WHERE email_id = $1", [username]);
+            const result = await db.query(`SELECT * FROM users WHERE ${isEmail(username) ? "email_id" : "username"} = $1`, [username]);
             if (result.rows.length > 0) {
                 const user = result.rows[0];
                 const hashedPassword = user.password_hash;
