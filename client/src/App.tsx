@@ -11,7 +11,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/set-username" element={<SetUsername />} />
-      <Route path="/Feed" element={<Feed />} />
+      <Route path="/feed" element={<Feed />} />
     </Routes>
   );
 }

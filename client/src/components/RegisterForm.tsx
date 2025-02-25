@@ -45,7 +45,7 @@ function BorderlessForm() {
   }
 
   return (
-    <form className="w-3/4 grid grid-cols-2 gap-x-4 mx-auto" action="" onSubmit={handleSubmit}>
+    <form className="w-1/2 grid grid-cols-2 gap-x-4 mx-auto" action="" onSubmit={handleSubmit}>
       <BorderlessInput colSpan="2" name="name" type="text" label="Name" onChange={handleChange}/>
       <BorderlessInput
         colSpan="2"
