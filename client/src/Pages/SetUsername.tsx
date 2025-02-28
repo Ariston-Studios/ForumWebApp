@@ -29,7 +29,7 @@ function SetUsername() {
 
         const data = await res.json();
         if(data.success) {
-            window.location.href = "/dashboard";
+            window.location.href = "/feed";
         } else {
             alert(data.message);
         }
