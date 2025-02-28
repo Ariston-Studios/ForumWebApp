@@ -19,19 +19,19 @@ function Register() {
         </div>
         <div className="grid grid-cols-2 divide-x-4 divide-green-400">
           <div className="col-span-1">
-          <h1 className="text-white mx-auto text-3xl font-playwrite text-center">
+            {/* <h1 className="text-white mx-auto text-2xl font-playwrite text-center">
               Register
-            </h1>
+            </h1> */}
             <RegisterForm />
           </div>
           <div className="col-span-1 flex flex-col">
-            <h1 className="text-white mx-auto text-3xl font-playwrite text-center">
-              Login With
-            </h1>
+            {/* <h1 className="text-white mx-auto text-2xl font-playwrite text-center">
+              Using
+            </h1> */}
             <div className="justify-center my-auto">
-              <ButtonWithImage circular={false} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google"/>
-              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Login with GitHub"/>
-              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" text="Login with Apple"/>
+              <ButtonWithImage circular={false} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Sign-up with Google" />
+              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Sign-up with GitHub" />
+              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" text="Sign-up with Apple" />
             </div>
           </div>
         </div>
