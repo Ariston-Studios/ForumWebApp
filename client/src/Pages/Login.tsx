@@ -14,7 +14,7 @@ function Login() {
           <div className="flex justify-around my-5">
             <ButtonWithImage circular={true} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" />
             <ButtonWithImage circular={true} imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" />
-            <ButtonWithImage circular={true} imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" />
+            <ButtonWithImage circular={true}  pathURL="/api/auth/discord" imgURL="https://img.icons8.com/?size=100&id=30888&format=png&color=FFFFFF" />
           </div>
         </div>
       </div>

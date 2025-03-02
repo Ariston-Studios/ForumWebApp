@@ -29,9 +29,9 @@ function Register() {
               Using
             </h1> */}
             <div className="justify-center my-auto">
-              <ButtonWithImage circular={false} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google" />
-              <ButtonWithImage circular={false} pathURL="/api/auth/github" imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Login with GitHub" />
-              <ButtonWithImage circular={false} imgURL="https://img.icons8.com/?size=100&id=30840&format=png&color=FFFFFF" text="Login with Apple" />
+              <ButtonWithImage circular={false} pathURL="/api/auth/google" imgURL="https://img.icons8.com/?size=100&id=17950&format=png&color=FFFFFF" text="Login with Google"/>
+              <ButtonWithImage circular={false} pathURL="/api/auth/github" imgURL="https://img.icons8.com/?size=100&id=106567&format=png&color=FFFFFF" text="Login with GitHub"/>
+              <ButtonWithImage circular={false} pathURL="/api/auth/discord" imgURL="https://img.icons8.com/?size=100&id=30888&format=png&color=FFFFFF" text="Login with Discord"/>
             </div>
           </div>
         </div>
