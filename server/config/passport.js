@@ -5,7 +5,6 @@ import GoogleStrategy from "passport-google-oauth2";
 import GitHubStrategy from "passport-github2";
 import DiscordStratergy from "passport-discord";
 import db from "./db.js";
-import { refreshToken } from "firebase-admin/app";
 
 function isEmail(email) {
     var re = /\S+@\S+\.\S+/;
