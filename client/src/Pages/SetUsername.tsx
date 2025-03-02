@@ -34,21 +34,20 @@ function SetUsername() {
       alert(data.message);
     }
   }
-}
 
-return (
-  <div className="h-dvh bg-white dark:bg-linear-to-b dark:from-gray-950 from-25% dark:to-green-950 dark:text-white  flex flex-col justify-center">
-    <div className="w-1/4 mx-auto">
-      <h1 className="text-white mx-auto text-2xl mb-10 font-playwrite text-center">
-        What do we call ya?
-      </h1>
-      <form onSubmit={handleSubmit} action="">
-        <BorderlessInput type="text" label="Username Set Kar MGH" onChange={handleChange} />
-        <button className="outline outline-green-600 hover:bg-green-600 hover:cursor-pointer transition-all delay-100 w-full h-8 mt-1.5 rounded-md" type="submit">Submit</button>
-      </form>
+  return (
+    <div className="h-dvh bg-white dark:bg-linear-to-b dark:from-gray-950 from-25% dark:to-green-950 dark:text-white  flex flex-col justify-center">
+      <div className="w-1/4 mx-auto">
+        <h1 className="text-white mx-auto text-2xl mb-10 font-playwrite text-center">
+          What do we call ya?
+        </h1>
+        <form onSubmit={handleSubmit} action="">
+          <BorderlessInput type="text" label="Username Set Kar MGH" onChange={handleChange} />
+          <button className="outline outline-green-600 hover:bg-green-600 hover:cursor-pointer transition-all delay-100 w-full h-8 mt-1.5 rounded-md" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default SetUsername;

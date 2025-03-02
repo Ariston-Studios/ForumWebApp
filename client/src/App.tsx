@@ -3,6 +3,7 @@ import Register from "./Pages/Register.tsx";
 import Login from "./Pages/Login.tsx";
 import SetUsername from "./Pages/SetUsername.tsx";
 import Feed from "./Pages/Feed.tsx";
+//import SetUsernameModal from "../components/SetUsernameModal.tsx";
 
 
 function App() {
