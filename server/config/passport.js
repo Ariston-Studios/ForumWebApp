@@ -2,20 +2,16 @@ import passport from "passport";
 import bcrypt from "bcrypt";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
+import GitHubStrategy from "passport-github2";
 import db from "./db.js";
 
-function isEmail(email) {
-    var re = /\S+@\S+\.\S+/;
-  return re.test(email);
-}
-
 passport.use(new Strategy(
-    // {
-    //     usernameField: "email",
-    // },
+    {
+        usernameField: "email",
+    },
     async function verify(username, password, cb) {
         try {
-            const result = await db.query(`SELECT * FROM users WHERE ${isEmail(username) ? "email_id" : "username"} = $1`, [username]);
+            const result = await db.query("SELECT * FROM users WHERE email_id = $1", [username]);
             if (result.rows.length > 0) {
                 const user = result.rows[0];
                 const hashedPassword = user.password_hash;
@@ -58,6 +54,40 @@ passport.use("google", new GoogleStrategy({
             cb(null, result.rows[0]);
         }
     } catch (error) {
+        cb(error);
+    }
+}));
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: process.env.GITHUB_CALLBACK_URL,
+    scope: ["user:email"]
+}, async (accessToken, refreshToken, profile, cb) => {
+    try {
+        const email = profile.emails?.[0]?.value || null;
+        // const username = profile.username;
+        // const name = profile.displayName;
+
+        console.log(profile);
+
+        if (!email) {
+            return cb(null, false, { message: "GitHub account does not have a public email." });
+        }
+
+        let result = await db.query("SELECT * FROM users WHERE email_id = $1", [email]);
+
+        if (result.rows.length === 0) {
+            cb(null, {
+                githubId: profile.id,
+                email: profile.emails[0].value,
+                name: profile.displayName,
+                needsUsername: true
+            });
+        } else {
+            cb(null, result.rows[0]);
+        }
+    } catch (error) {
+        console.log("Error");
         cb(error);
     }
 }));

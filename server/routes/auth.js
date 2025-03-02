@@ -27,6 +27,18 @@ router.get("/google/dashboard",
         }
     }
 );
+router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
+
+router.get("/github/dashboard",
+    passport.authenticate("github", { failureRedirect: "http://localhost:5173/login", session: true }),
+    (req, res) => {
+        if (req.user.needsUsername) {
+            res.redirect(`http://localhost:5173/set-username?email=${req.user.email}&name=${req.user.name}`);
+        } else {
+            res.redirect("http://localhost:5173/feed");
+        }
+    }
+);
 
 router.post("/set-username", async (req, res) => {
     const { email, username, name } = req.body;
