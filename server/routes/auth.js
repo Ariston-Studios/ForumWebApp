@@ -17,19 +17,19 @@ router.get("/google", passport.authenticate("google", {
     scope: ["profile", "email"],
 }))
 
-router.get("/google/dashboard",
+router.get("/google/feed",
     passport.authenticate("google", { failureRedirect: "http://localhost:5173/login", session: true }),
     (req, res) => {
         if (req.user.needsUsername) {
             res.redirect(`http://localhost:5173/set-username?email=${req.user.email}&name=${req.user.name}`);
         } else {
-            res.redirect("http://localhost:5173/dashboard");
+            res.redirect("http://localhost:5173/feed");
         }
     }
 );
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
 
-router.get("/github/dashboard",
+router.get("/github/feed",
     passport.authenticate("github", { failureRedirect: "http://localhost:5173/login", session: true }),
     (req, res) => {
         if (req.user.needsUsername) {
