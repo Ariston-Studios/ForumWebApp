@@ -3,7 +3,14 @@ import bcrypt from "bcrypt";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import GitHubStrategy from "passport-github2";
+import DiscordStratergy from "passport-discord";
 import db from "./db.js";
+import { refreshToken } from "firebase-admin/app";
+
+function isEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
 
 passport.use(new Strategy(
     {
@@ -88,6 +95,28 @@ passport.use(new GitHubStrategy({
         }
     } catch (error) {
         console.log("Error");
+        cb(error);
+    }
+}));
+
+passport.use("discord",new DiscordStratergy({
+    clientID: process.env.DISCORD_CLIENT_ID,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    callbackURL: process.env.DISCORD_CALLBACK_URL,
+},async(accessToken,refreshToken,profile,cb)=> {
+    try {
+        const result = await db.query("SELECT * FROM users WHERE email_id = $1", [profile.email]);
+        if (result.rows.length === 0) {
+            cb(null, {
+                discordId: profile.id,
+                email: profile.email,
+                name: profile.displayName,
+                needsUsername: true
+});
+        }else {
+            cb(null, result.rows[0]);
+        }
+    } catch(error){
         cb(error);
     }
 }));

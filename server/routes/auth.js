@@ -40,6 +40,21 @@ router.get("/github/dashboard",
     }
 );
 
+router.get("/discord",passport.authenticate("discord", {
+        scope: ["identify", "email"],
+    }));
+
+router.get("/discord/feed",
+    passport.authenticate("discord", { failureRedirect: "http://localhost:5173/login", session: true }),
+    (req, res) => {
+        if (req.user.needsUsername) {
+            res.redirect(`http://localhost:5173/set-username?email=${req.user.email}&name=${req.user.name}`);
+        } else {
+            res.redirect("http://localhost:5173/dashboard");
+        }
+    }
+);
+
 router.post("/set-username", async (req, res) => {
     const { email, username, name } = req.body;
 
