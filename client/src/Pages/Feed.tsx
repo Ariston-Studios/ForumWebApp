@@ -19,7 +19,8 @@ function Feed() {
         if (res.ok) {
           const data = await res.json();
           setUser(data);
-          if (!data.username) {
+          console.log(data);
+          if (data.needsUsername) {
             setIsModalOpen(true);
           }
         }// else {

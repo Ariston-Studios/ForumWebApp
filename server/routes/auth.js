@@ -20,11 +20,8 @@ router.get("/google", passport.authenticate("google", {
 router.get("/google/feed",
     passport.authenticate("google", { failureRedirect: "http://localhost:5173/login", session: true }),
     (req, res) => {
-        if (req.user.needsUsername) {
-            res.redirect(`http://localhost:5173/set-username?email=${req.user.email}&name=${req.user.name}`);
-        } else {
-            res.redirect("http://localhost:5173/feed");
-        }
+        console.log(req);
+        res.redirect(`http://localhost:5173/feed?needsUsername=${req.needsUsername}`);
     }
 );
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
@@ -32,11 +29,8 @@ router.get("/github", passport.authenticate("github", { scope: ["user:email"] })
 router.get("/github/feed",
     passport.authenticate("github", { failureRedirect: "http://localhost:5173/login", session: true }),
     (req, res) => {
-        if (req.user.needsUsername) {
-            res.redirect(`http://localhost:5173/set-username?email=${req.user.email}&name=${req.user.name}`);
-        } else {
-            res.redirect("http://localhost:5173/feed");
-        }
+        console.log(req);
+        res.redirect(`http://localhost:5173/feed?needsUsername=${req.needsUsername}`);
     }
 );
 
@@ -47,11 +41,7 @@ router.get("/discord",passport.authenticate("discord", {
 router.get("/discord/feed",
     passport.authenticate("discord", { failureRedirect: "http://localhost:5173/login", session: true }),
     (req, res) => {
-        if (req.user.needsUsername) {
-            res.redirect(`http://localhost:5173/set-username?email=${req.user.email}&name=${req.user.name}`);
-        } else {
-            res.redirect("http://localhost:5173/dashboard");
-        }
+        res.redirect("http://localhost:5173/feed");
     }
 );
 
@@ -69,7 +59,7 @@ router.post("/set-username", async (req, res) => {
             return res.status(400).json({ success: false, message: "Username already taken" });
         }
 
-        await db.query("INSERT INTO users (username, name, email_id, password_hash) VALUES ($1, $2, $3, $4)", [username, name, email, "google"]);
+        await db.query("INSERT INTO users (username, name, email_id, password_hash) VALUES ($1, $2, $3, $4)", [username, name, email, "oauth"]);
 
         res.json({ success: true });
     } catch (error) {

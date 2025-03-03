@@ -39,29 +39,3 @@ export const registerUser = async (req, res) => {
     }
 };
 
-export const githubAuth = async (accessToken, refreshToken, profile, done) => {
-    try {
-        const email = profile.emails?.[0]?.value || null;
-        const username = profile.username;
-        const name = profile.displayName;
-
-        if (!email) {
-            return done(null, false, { message: "GitHub account does not have a public email." });
-        }
-
-        let user = await db.query("SELECT * FROM users WHERE email_id = $1", [email]);
-
-        if (user.rows.length === 0) {
-            user = await db.query(
-                "INSERT INTO users (username, name, email_id, password_hash) VALUES ($1, $2, $3, $4) RETURNING *",
-                [username, name, email, "github"]
-            );
-            return done(null, user.rows[0]);
-        }
-
-        return done(null, user.rows[0]);
-    } catch (error) {
-        console.error("GitHub Authentication Error:", error);
-        return done(error, null);
-    }
-};

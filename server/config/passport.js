@@ -74,7 +74,7 @@ passport.use(new GitHubStrategy({
         // const username = profile.username;
         // const name = profile.displayName;
 
-        console.log(profile);
+        // console.log(profile);
 
         if (!email) {
             return cb(null, false, { message: "GitHub account does not have a public email." });

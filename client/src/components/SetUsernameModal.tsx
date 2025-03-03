@@ -37,8 +37,8 @@ const SetUsernameModal = ({ user, onClose }: SetUsernameModalProps) => {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div className="z-20 fixed inset-0 flex items-center justify-center bg-black/50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96">
                 <h2 className="text-xl font-bold mb-4">Set Your Username</h2>
                 <input
                     type="text"
@@ -49,8 +49,7 @@ const SetUsernameModal = ({ user, onClose }: SetUsernameModalProps) => {
                 />
                 {error && <p className="text-red-500 mt-2">{error}</p>}
                 <div className="flex justify-end mt-4">
-                    <button onClick={onClose} className="mr-2 px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                    <button onClick={handleSubmit} className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 outline-2 w-full text-white rounded hover:cursor-pointer hover:outline-green-500">Submit</button>
                 </div>
             </div>
         </div>
