@@ -1,13 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import BorderlessInput from "./BorderlessInput";
+import Greeting from "./Greeting";
 
 interface SetUsernameModalProps {
     user: { email: string; name: string };
     onClose: () => void;
 }
 
-const SetUsernameModal = ({ user, onClose }: SetUsernameModalProps) => {
+
+
+const SetUsernameModal: React.FC<SetUsernameModalProps> = ({ user, onClose }) => {
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
+
+    const firstName = user.name.split(" ")[0];
 
     const handleSubmit = async () => {
         if (!username) {
@@ -39,17 +45,16 @@ const SetUsernameModal = ({ user, onClose }: SetUsernameModalProps) => {
     return (
         <div className="z-20 fixed inset-0 flex items-center justify-center bg-black/50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96">
-                <h2 className="text-xl font-bold mb-4">Set Your Username</h2>
-                <input
+                <Greeting name={firstName} />
+                <BorderlessInput
                     type="text"
-                    placeholder="Enter username"
+                    label="set username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="w-full p-2 border rounded-md"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                 />
                 {error && <p className="text-red-500 mt-2">{error}</p>}
                 <div className="flex justify-end mt-4">
-                    <button onClick={handleSubmit} className="px-4 py-2 outline-2 w-full text-white rounded hover:cursor-pointer hover:outline-green-500">Submit</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 outline-2 w-full outline-green-600 rounded hover:cursor-pointer hover:bg-green-600 transition-all delay-100">Submit</button>
                 </div>
             </div>
         </div>
