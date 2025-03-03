@@ -48,13 +48,13 @@ const SetUsernameModal: React.FC<SetUsernameModalProps> = ({ user, onClose }) =>
                 <Greeting name={firstName} />
                 <BorderlessInput
                     type="text"
-                    label="set username"
+                    label="Set Username"
                     value={username}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                 />
-                {error && <p className="text-red-500 mt-2">{error}</p>}
+                {error && <p className="text-red-400 mt-2">{error}</p>}
                 <div className="flex justify-end mt-4">
-                    <button onClick={handleSubmit} className="px-4 py-2 outline-2 w-full outline-green-600 rounded hover:cursor-pointer hover:bg-green-600 transition-all delay-100">Submit</button>
+                    <button onClick={handleSubmit} className="px-4 py-2 outline-2 w-full outline-green-400 text-green-400 text-raised font-[600] subpixel-antialiased rounded hover:cursor-pointer hover:text-white hover:bg-green-400 transition-all delay-100">Submit</button>
                 </div>
             </div>
         </div>
