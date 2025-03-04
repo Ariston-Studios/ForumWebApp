@@ -9,6 +9,7 @@ function Feed() {
   const [user, setUser] = useState<{ email: string; name: string; username?: string } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+  const year = new Date().getFullYear();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,7 +39,15 @@ function Feed() {
     <div className="bg-white dark:bg-linear-to-b dark:bg-gray-900 dark:text-white shadow-lg border-1 border-white">
       <Header />
       <SideNavBar />
-      <div className="h-dvh -z-10"></div>
+      <div className="h-dvh -z-10 grid grid-cols-4 ml-32 mr-12 mt-20.5 mb-5">
+        <div className="col-span-3 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-10 mr-10">
+          <h1>Something Something</h1>
+        </div>
+        <div className="col-span-1 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-5 mr-10">
+          <h1>Hello Hunny Bunny</h1>
+        </div>
+      </div>
+      <p className="left-0 bottom-0 right-0 text-center dark:text-white my-5">Copyright &copy; {year}</p>
       {isModalOpen && user && <SetUsernameModal user={user} onClose={() => setIsModalOpen(false)} />}
     </div>
   )

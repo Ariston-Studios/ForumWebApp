@@ -24,7 +24,7 @@ const greetings = [
     (name: string) => `Yo, ${name}! Just a quick step and you're in.`,
     (name: string) => `Hey, ${name}! You're almost there...`,
     (name: string) => `Welcome, ${name}! One last thing before we start.`,
-    (name: string) => `Username? I barely know-her name.`
+    () => `Username? I barely know-her name.`
 ];
 
 interface GreetingProps {
