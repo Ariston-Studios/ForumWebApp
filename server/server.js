@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import session from "express-session";
 import passport from "./config/passport.js";
 import db from "./config/db.js";
@@ -12,9 +11,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-
-db.connect();
-
 app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -22,7 +18,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { secure: false, httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 app.use(passport.initialize());
@@ -49,7 +46,6 @@ app.get("/check", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use(bodyParser.urlencoded({ extended:true}));
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

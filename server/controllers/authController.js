@@ -6,9 +6,6 @@ dotenv.config();
 
 const saltRounds = 10;
 
-db.connect();
-
-
 export const registerUser = async (req, res) => { 
     const { username, name, email, password } = req.body;
 
