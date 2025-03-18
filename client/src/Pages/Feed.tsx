@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SetUsernameModal from "../components/SetUsernameModal";
 import SideNavBar from "../components/SideNavBar";
 import Header from "../components/Header";
+import Questions from "../components/Questions";
 
 function Feed() {
 
@@ -41,7 +42,7 @@ function Feed() {
       <SideNavBar />
       <div className="h-dvh -z-10 grid grid-cols-4 ml-32 mr-12 mt-20.5 mb-5">
         <div className="col-span-3 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-10 mr-10">
-          <h1>Something Something</h1>
+          <Questions />
         </div>
         <div className="col-span-1 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-5 mr-10">
           <h1>Hello Hunny Bunny</h1>
