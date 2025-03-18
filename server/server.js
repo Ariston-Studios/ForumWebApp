@@ -47,7 +47,7 @@ app.get("/check", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/questions", questionRoutes);
+//app.use("/api/questions", questionRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
