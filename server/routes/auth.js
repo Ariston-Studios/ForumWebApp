@@ -8,7 +8,7 @@ const router = Router();
 router.post("/register", registerUser);
 
 router.post("/login", (req, res, next) => {
-    passport.authenticate("local", (req, user, info) => {
+    passport.authenticate("local", (err, user, info) => {
         if(err) return res.status(500).json({error: "Authentication Error"});
         if(!user) return res.status(401).json({error: info.message || "Invalid Credentials"});
 
