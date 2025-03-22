@@ -5,6 +5,7 @@ import session from "express-session";
 import passport from "./config/passport.js";
 import db from "./config/db.js";
 import authRoutes from './routes/auth.js';
+import feedRouts from './routes/feed.js';
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.get("/check", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/feed", feedRouts);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
