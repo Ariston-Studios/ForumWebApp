@@ -1,9 +1,11 @@
 import { useState } from "react";
 import BorderlessInput from "./BorderlessInput";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 function BorderlessForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -39,6 +41,7 @@ function BorderlessForm() {
 
     const data = await response.json();
     if(response.ok) {
+      navigate("/login")
       alert(data.info);
     }
     console.log(data);

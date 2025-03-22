@@ -29,7 +29,7 @@ function BorderlessFormLog() {
 
     const data = await response.json();
     if(response.ok) {
-      navigate("/dashboard");
+      navigate("/feed");
     } else {
       alert(data.message);
     }
