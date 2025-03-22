@@ -17,7 +17,7 @@ passport.use(new Strategy(
     },
     async function verify(username, password, cb) {
         try {
-            const result = await db.query("SELECT * FROM users WHERE email_id = $1", [username]);
+            const result = await db.query("SELECT * FROM users WHERE email_id = $1 OR username = $2", [username, username]);
             if (result.rows.length === 0) {
                 return cb(null, false, { message: "User not found" });
             }
