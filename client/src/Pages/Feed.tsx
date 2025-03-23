@@ -4,13 +4,14 @@ import SetUsernameModal from "../components/SetUsernameModal";
 import SideNavBar from "../components/SideNavBar";
 import Header from "../components/Header";
 import Questions from "../components/Questions";
+import Calendar from "../components/Calendar";
+
 
 function Feed() {
 
   const [user, setUser] = useState<{ email: string; name: string; username?: string } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const year = new Date().getFullYear();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -45,10 +46,9 @@ function Feed() {
           <Questions />
         </div>
         <div className="col-span-1 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-5 mr-10">
-          <h1>Hello Hunny Bunny</h1>
+          <Calendar/>
         </div>
       </div>
-      <p className="left-0 bottom-0 right-0 text-center dark:text-white my-5">Copyright &copy; {year}</p>
       {isModalOpen && user && <SetUsernameModal user={user} onClose={() => setIsModalOpen(false)} />}
     </div>
   )
