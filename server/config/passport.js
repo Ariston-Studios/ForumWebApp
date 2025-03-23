@@ -13,7 +13,7 @@ function isEmail(email) {
 
 passport.use(new Strategy(
     {
-        usernameField: "email",
+        usernameField: "username",
     },
     async function verify(username, password, cb) {
         try {

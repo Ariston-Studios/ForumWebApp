@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/authController.js";
+import { registerUser, setUsername, logOutUser, checkSession } from "../controllers/authController.js";
 import passport from "../config/passport.js";
 import db from "../config/db.js";
 
@@ -51,42 +51,10 @@ router.get("/discord/feed",
     }
 );
 
-router.post("/set-username", async (req, res) => {
-    const { email, username, name } = req.body;
+router.post("/set-username", setUsername);
 
-    if (!email || !username) {
-        return res.status(400).json({ success: false, message: "Missing username or email" });
-    }
+router.post("/logout", logOutUser);
 
-    try {
-        const checkUsername = await db.query("SELECT * FROM users WHERE username = $1", [username])
-
-        if (checkUsername.rows.length > 0) {
-            return res.status(400).json({ success: false, message: "Username already taken" });
-        }
-
-        await db.query("INSERT INTO users (username, name, email_id, password_hash) VALUES ($1, $2, $3, $4)", [username, name, email, "oauth"]);
-
-        res.json({ success: true });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
-    }
-});
-
-router.post("/logout", (req, res) => {
-    req.logout((err) => {
-        if (err) res.status(500).json({ error: "Logout failed" });
-        req.session.destroy(() => res.json({ message: "Logout successful" }));
-    });
-});
-
-router.get("/check-session", (req, res) => {
-    if (req.isAuthenticated()) {
-        res.json(req.user);
-    } else {
-        res.status(401).json({ message: "Not authenticated" });
-    }
-});
+router.get("/check-session", checkSession);
 
 export default router;
