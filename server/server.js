@@ -5,6 +5,7 @@ import session from "express-session";
 import passport from "./config/passport.js";
 import db from "./config/db.js";
 import authRoutes from './routes/auth.js';
+import answerRoutes from './routes/answer.js';
 import questionRoutes from './routes/questions.js'; 
 import feedRouts from './routes/feed.js';
 
@@ -48,6 +49,7 @@ app.get("/check", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/answers",answerRoutes);
 app.use("/api/questions", questionRoutes); 
 app.use("/feed", feedRouts);
 
