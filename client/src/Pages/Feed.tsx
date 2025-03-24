@@ -46,7 +46,7 @@ function Feed() {
           <Questions />
         </div>
         <div className="col-span-1 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-5 mr-10">
-          <Calendar/>
+          <Calendar />
         </div>
       </div>
       {isModalOpen && user && <SetUsernameModal user={user} onClose={() => setIsModalOpen(false)} />}
