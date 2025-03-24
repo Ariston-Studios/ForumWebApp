@@ -26,9 +26,7 @@ function Feed() {
           if (data.needsUsername) {
             setIsModalOpen(true);
           }
-        }// else {
-        //   navigate("/register");
-        // }
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -38,15 +36,15 @@ function Feed() {
   }, [navigate]);
 
   return (
-    <div className="bg-white dark:bg-linear-to-b dark:bg-gray-900 dark:text-white shadow-lg border-1 border-white">
+    <div className="bg-linear-to-b bg-gray-900 text-white shadow-lg border-1 border-white">
       <Header />
       <SideNavBar />
       <div className="h-dvh -z-10 grid grid-cols-4 ml-32 mr-12 mt-20.5 mb-5">
-        <div className="col-span-3 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-10 mr-10">
+        <div className="col-span-3 bg-gray-800 rounded-xl mt-10 mb-5 ml-10 mr-10">
           <Questions />
         </div>
-        <div className="col-span-1 dark:bg-gray-800 rounded-xl mt-10 mb-5 ml-5 mr-10">
-          <Calendar/>
+        <div className=" bg-gray-800 rounded-xl mt-10 mb-5 ml-5 mr-10 flex justify-center">
+        <Calendar/>
         </div>
       </div>
       {isModalOpen && user && <SetUsernameModal user={user} onClose={() => setIsModalOpen(false)} />}
