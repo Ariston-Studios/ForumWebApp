@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { FaArrowUp, FaArrowDown, FaCommentDots, FaShareAlt } from "react-icons/fa";
+import Pagination from "./Pagination";
+
+const QUESTIONS_PER_PAGE = 2;
 
 interface Question {
   id: number;
@@ -69,11 +72,37 @@ const sampleQuestions: Question[] = [
       },
     ],
   },
+  {
+    id: 3,
+    title: "What is the difference between var, let, and const?",
+    body: "I keep getting confused between var, let, and const in JavaScript. When should I use each?",
+    users: "JaneSmith",
+    created_at: new Date().toISOString(),
+    avatar: "https://media.istockphoto.com/id/486869012/photo/goat-looks-at-us.jpg?s=612x612&w=0&k=20&c=yeu3XUkLR2-mO2zwDGNaVL5o0DITA-deNXSKNaCX6bA=",
+    comments: [
+      {
+        id: 1,
+        text: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
+        user: "JSExpert",
+        created_at: new Date().toISOString(),
+      },
+      {
+        id: 2,
+        text: "`let` is for variables that will change, and `const` is for constants that won't change.",
+        user: "SyntaxPro",
+        created_at: new Date().toISOString(),
+      },
+    ],
+  },
 ];
 
 const Questions = () => {
   const [questions, setQuestions] = useState<Question[]>(sampleQuestions);
-  const [openComments, setOpenComments] = useState<number | null>(null); 
+  const [openComments, setOpenComments] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
+  const displayedQuestions = questions.slice((currentPage - 1) * QUESTIONS_PER_PAGE, currentPage * QUESTIONS_PER_PAGE);
 
   const toggleComments = (questionId: number) => {
     if (openComments === questionId) {
@@ -85,82 +114,140 @@ const Questions = () => {
 
   return (
     <div className="space-y-6 p-4">
-      {questions.length > 0 ? (
-        questions.map((q) => (
-          <div key={q.id} className="border-b pb-4 flex space-x-4 items-start">
-            <img
-              src={q.avatar}
-              alt={`${q.users}'s avatar`}
-              className="w-12 h-12 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <div>
-                <h3 className="text-lg font-semibold">{q.title}</h3>
-                <p className="text-gray-600">{q.body}</p>
-                <p className="text-sm text-gray-400">
-                  Asked by {q.users} • {new Date(q.created_at).toLocaleString()}
-                </p>
-              </div>
+      {displayedQuestions.map((q) => (
+        <div key={q.id} className="border-b pb-4 flex space-x-4 items-start">
+          <img src={q.avatar} alt={`${q.users}'s avatar`} className="w-12 h-12 rounded-full object-cover" />
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold">{q.title}</h3>
+            <p className="text-gray-600">{q.body}</p>
+            <p className="text-sm text-gray-400">Asked by {q.users} • {new Date(q.created_at).toLocaleString()}</p>
 
-              <div className="flex items-center space-x-4 mt-2">
-                <button className="flex items-center text-green-500 hover:text-green-600">
-                  <FaArrowUp className="mr-1" />
-                  <span>Upvote</span>
-                </button>
+            <div className="flex items-center space-x-4 mt-2">
+              <button className="flex items-center text-green-500 hover:text-green-600">
+                <FaArrowUp className="mr-1" />
+                <span>Upvote</span>
+              </button>
 
-                <button className="flex items-center text-red-500 hover:text-red-600">
-                  <FaArrowDown className="mr-1" />
-                  <span>Downvote</span>
-                </button>
+              <button className="flex items-center text-red-500 hover:text-red-600">
+                <FaArrowDown className="mr-1" />
+                <span>Downvote</span>
+              </button>
 
-                <button
-                  className="flex items-center text-gray-600 hover:text-gray-800"
-                  onClick={() => toggleComments(q.id)}
-                >
-                  <FaCommentDots className="mr-1" />
-                  <span>Comment</span>
-                </button>
+              <button className="flex items-center text-gray-600 hover:text-gray-800" onClick={() => toggleComments(q.id)}>
+                <FaCommentDots className="mr-1" />
+                <span>Comment</span>
+              </button>
 
-                <button className="flex items-center text-gray-600 hover:text-gray-800">
-                  <FaShareAlt className="mr-1" />
-                  <span>Share</span>
-                </button>
-              </div>
-              {openComments === q.id && (
-                <div className="mt-4 space-y-2">
-                  <h4 className="text-md font-semibold">Comments</h4>
-                  {q.comments && q.comments.length > 0 ? (
-                    q.comments.map((comment) => (
-                      <div key={comment.id} className="ml-6 border-l-2 pl-4">
-                        <p className="text-gray-800">{comment.text}</p>
-                        <p className="text-sm text-gray-400">
-                          - {comment.user}, {new Date(comment.created_at).toLocaleString()}
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-gray-500">No comments yet. Be the first to comment!</p>
-                  )}
-
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      placeholder="Write a comment..."
-                      className="w-full p-2 border rounded"
-                    />
-                    <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
-                      Post Comment
-                    </button>
-                  </div>
-                </div>
-              )}
+              <button className="flex items-center text-gray-600 hover:text-gray-800">
+                <FaShareAlt className="mr-1" />
+                <span>Share</span>
+              </button>
             </div>
+
+            {openComments === q.id && (
+              <div className="mt-4 space-y-2">
+                <h4 className="text-md font-semibold">Comments</h4>
+                {q.comments && q.comments.length > 0 ? (
+                  q.comments.map((comment) => (
+                    <div key={comment.id} className="ml-6 border-l-2 pl-4">
+                      <p className="text-gray-800">{comment.text}</p>
+                      <p className="text-sm text-gray-400">- {comment.user}, {new Date(comment.created_at).toLocaleString()}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-500">No comments yet. Be the first to comment!</p>
+                )}
+
+                <div className="mt-2">
+                  <input type="text" placeholder="Write a comment..." className="w-full p-2 border rounded" />
+                  <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">Post Comment</button>
+                </div>
+              </div>
+            )}
           </div>
-        ))
-      ) : (
-        <p className="text-center text-gray-500">No questions found.</p>
-      )}
+        </div>
+      ))}
+
+      {/* Pagination */}
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
     </div>
+    // <div className="space-y-6 p-4">
+    //   {questions.length > 0 ? (
+    //     questions.map((q) => (
+    //       <div key={q.id} className="border-b pb-4 flex space-x-4 items-start">
+    //         <img
+    //           src={q.avatar}
+    //           alt={`${q.users}'s avatar`}
+    //           className="w-12 h-12 rounded-full object-cover"
+    //         />
+    //         <div className="flex-1">
+    //           <div>
+    //             <h3 className="text-lg font-semibold">{q.title}</h3>
+    //             <p className="text-gray-600">{q.body}</p>
+    //             <p className="text-sm text-gray-400">
+    //               Asked by {q.users} • {new Date(q.created_at).toLocaleString()}
+    //             </p>
+    //           </div>
+
+    //           <div className="flex items-center space-x-4 mt-2">
+    //             <button className="flex items-center text-green-500 hover:text-green-600">
+    //               <FaArrowUp className="mr-1" />
+    //               <span>Upvote</span>
+    //             </button>
+
+    //             <button className="flex items-center text-red-500 hover:text-red-600">
+    //               <FaArrowDown className="mr-1" />
+    //               <span>Downvote</span>
+    //             </button>
+
+    //             <button
+    //               className="flex items-center text-gray-600 hover:text-gray-800"
+    //               onClick={() => toggleComments(q.id)}
+    //             >
+    //               <FaCommentDots className="mr-1" />
+    //               <span>Comment</span>
+    //             </button>
+
+    //             <button className="flex items-center text-gray-600 hover:text-gray-800">
+    //               <FaShareAlt className="mr-1" />
+    //               <span>Share</span>
+    //             </button>
+    //           </div>
+    //           {openComments === q.id && (
+    //             <div className="mt-4 space-y-2">
+    //               <h4 className="text-md font-semibold">Comments</h4>
+    //               {q.comments && q.comments.length > 0 ? (
+    //                 q.comments.map((comment) => (
+    //                   <div key={comment.id} className="ml-6 border-l-2 pl-4">
+    //                     <p className="text-gray-800">{comment.text}</p>
+    //                     <p className="text-sm text-gray-400">
+    //                       - {comment.user}, {new Date(comment.created_at).toLocaleString()}
+    //                     </p>
+    //                   </div>
+    //                 ))
+    //               ) : (
+    //                 <p className="text-gray-500">No comments yet. Be the first to comment!</p>
+    //               )}
+
+    //               <div className="mt-2">
+    //                 <input
+    //                   type="text"
+    //                   placeholder="Write a comment..."
+    //                   className="w-full p-2 border rounded"
+    //                 />
+    //                 <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+    //                   Post Comment
+    //                 </button>
+    //               </div>
+    //             </div>
+    //           )}
+    //         </div>
+    //       </div>
+    //     ))
+    //   ) : (
+    //     <p className="text-center text-gray-500">No questions found.</p>
+    //   )}
+    // </div>
   );
 };
 
