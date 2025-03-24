@@ -45,7 +45,31 @@ export const getQuestionById = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+export const voteQuestion = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type } = req.body;
 
-export default { createQuestion, getQuestions, getQuestionById };
+    if (type !== "upvote" && type !== "downvote") {
+      return res.status(400).json({ message: "Invalid vote type" });
+    }
+
+    const voteChange = type === "upvote" ? 1 : -1;
+    const result = await db.query(
+      "UPDATE questions SET upvotes = upvotes + $1, downvotes = downvotes - $1 WHERE id = $2 RETURNING *",
+      [voteChange, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+
+    res.status(200).json({ message: `Question ${type}d`, question: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export default { createQuestion, getQuestions, getQuestionById ,voteQuestion };
 
   
