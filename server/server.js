@@ -5,8 +5,7 @@ import session from "express-session";
 import passport from "./config/passport.js";
 import db from "./config/db.js";
 import authRoutes from './routes/auth.js';
-import answerRoutes from './routes/answer.js';
-import questionRoutes from './routes/questions.js'; 
+import questionRoutes from './routes/questions.js';
 import feedRouts from './routes/feed.js';
 
 dotenv.config();
@@ -31,7 +30,7 @@ app.use(passport.session());
 app.get("/", async (req, res) => {
     try {
         const result = await db.query("SELECT username, name, email_id FROM users");
-        res.json(result.rows); 
+        res.json(result.rows);
     } catch (error) {
         console.error("Error fetching users: ", error);
         res.status(500).json({ error: "Internal Server Error" });
