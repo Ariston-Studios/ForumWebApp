@@ -113,7 +113,7 @@ const Questions = () => {
     };
 
     async function handlePost() {
-        const result = await fetch(`${import.meta.env.VITE_API_URL}`)
+        const result = await fetch(`${import.meta.env.VITE_API_URL}/api/questions/ask`)
     }
 
     return (
