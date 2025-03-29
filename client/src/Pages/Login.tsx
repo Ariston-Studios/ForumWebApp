@@ -5,7 +5,7 @@ import ButtonWithImage from "../components/ButtonWithImage";
 
 function Login() {
   return (
-    <div className="bg-white dark:bg-linear-to-b dark:from-gray-950 from-25% dark:to-green-950 dark:text-white shadow-lg">
+    <div className="bg-linear-to-b from-gray-950 from-25% to-green-950 text-white shadow-lg">
       <Header />
       <div className="h-dvh flex flex-col justify-center">
         <div className="w-1/4 mx-auto">
