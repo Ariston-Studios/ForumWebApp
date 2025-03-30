@@ -10,6 +10,12 @@
   --font-open-sans: "Open Sans", serif;
 }
 
+.shadow-1 {
+  box-shadow:  13px 13px 25px #010307,
+                -13px -13px 25px #050b1d;
+}
+
+
 /* 
 /* General Styling 
 * {

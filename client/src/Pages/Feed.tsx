@@ -36,14 +36,14 @@ function Feed() {
   }, [navigate]);
 
   return (
-    <div className="bg-linear-to-b bg-gray-950 text-white shadow-lg border-1 border-white">
+    <div className="h-dvh bg-gray-950 text-white shadow-lg border-1 border-white">
       <Header />
       <SideNavBar />
-      <div className="h-dvh -z-10 grid grid-cols-4 ml-32 mr-12 mt-20.5 mb-5">
-        <div className="col-span-3 bg-gray-900 rounded-xl mt-10 mb-5 ml-10 mr-10">
+      <div className="grid grid-cols-4 mx-40 mt-40 gap-10">
+        <div className="col-span-3  rounded-xl">
           <Questions />
         </div>
-        <div className=" bg-gray-900 rounded-xl mt-10 mb-5 ml-5 mr-10 flex justify-center">
+        <div className="col-span-1 h-100 outline outline-gray-800 rounded-xl mx-auto shadow-1 p-10 mt-3">
           <Calendar />
         </div>
       </div>

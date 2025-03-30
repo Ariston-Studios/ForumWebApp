@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function FeedLogos(props: any) {
   const [ buttonState, setButtonState ] = useState(false);
 
+  const navigate = useNavigate();
+
   function handleClick() {
-    setButtonState(!buttonState);
+    setButtonState(true);
+    navigate(`${props.href}`)
   }
 
   return (

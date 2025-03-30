@@ -102,10 +102,33 @@ const sampleQuestions: Question[] = [
       },
     ],
   },
+  {
+    id: 4,
+    title: "What is the difference between var, let, and const?",
+    body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam, inventore. Ipsa atque ipsum ea voluptatibus, dignissimos magni blanditiis odio. Asperiores eius perferendis ea accusamus perspiciatis sapiente atque a dolorem sit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab incidunt unde totam libero! Quisquam quaerat ipsum vero fuga quam, aperiam a est recusandae exercitationem nulla assumenda, non nostrum corrupti! Unde? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab incidunt unde totam libero! Quisquam quaerat ipsum vero fuga quam, aperiam a est recusandae exercitationem nulla assumenda, non nostrum corrupti! Unde?",
+    users: "JaneSmith",
+    created_at: new Date().toISOString(),
+    avatar:
+      "https://media.istockphoto.com/id/486869012/photo/goat-looks-at-us.jpg?s=612x612&w=0&k=20&c=yeu3XUkLR2-mO2zwDGNaVL5o0DITA-deNXSKNaCX6bA=",
+    comments: [
+      {
+        id: 1,
+        text: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
+        user: "JSExpert",
+        created_at: new Date().toISOString(),
+      },
+      {
+        id: 2,
+        text: "`let` is for variables that will change, and `const` is for constants that won't change.",
+        user: "SyntaxPro",
+        created_at: new Date().toISOString(),
+      },
+    ],
+  },
 ];
 
 const Questions = () => {
-  const [questions, setQuestions] = useState<Question[]>(sampleQuestions);
+  const [questions, _setQuestions] = useState<Question[]>(sampleQuestions);
   const [openComments, setOpenComments] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -131,20 +154,20 @@ const Questions = () => {
   return (
     <div className="space-y-6 p-4">
       {displayedQuestions.map((q) => (
-        <div key={q.id} className="border-b pb-4 flex space-x-4 items-start">
+        <div key={q.id} className="bg-[#030715] rounded-2xl pb-4 flex space-x-4 items-start outline outline-gray-800 p-5 shadow-1">
           <img
             src={q.avatar}
             alt={`${q.users}'s avatar`}
             className="w-12 h-12 rounded-full object-cover"
           />
           <div className="flex-1">
-            <h3 className="text-lg font-semibold">{q.title}</h3>
-            <p className="text-gray-50">{q.body}</p>
-            <p className="text-sm text-gray-400">
+            <h3 className="text-lg font-semibold mb-2">{q.title}</h3>
+            <p className="text-gray-300 my-1">{q.body}</p>
+            <p className="text-sm text-gray-400 mt-2">
               Asked by {q.users} • {new Date(q.created_at).toLocaleString()}
             </p>
 
-            <div className="flex items-center space-x-4 mt-2">
+            <div className="flex items-center space-x-4 my-1">
               <button className="flex items-center text-green-500 hover:text-green-600 cursor-pointer">
                 <FaArrowUp className="mr-1" />
                 <span>Upvote</span>
@@ -200,9 +223,9 @@ const Questions = () => {
                   <input
                     type="text"
                     placeholder="Write a comment..."
-                    className="w-full p-2 border border-e-0 rounded rounded-e-none "
+                    className="w-full p-2 outline outline-e-0  focus:none rounded rounded-e-none "
                   />
-                  <button className="px-2 mr-1 py-2 border text-white rounded rounded-s-none cursor-pointer">
+                  <button className="px-2 mr-1 py-2 outline text-white rounded rounded-s-none cursor-pointer">
                     Post
                   </button>
                 </div>

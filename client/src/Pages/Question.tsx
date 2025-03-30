@@ -46,19 +46,19 @@ function Question() {
   }
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen flex">
+    <div className="bg-gray-950 text-white min-h-screen flex">
       <SideNavBar />
       <div className="flex-1 p-10">
         <Header />
 
-        <div className="grid grid-cols-4 gap-5 mt-30 ml-30">
+        <div className="grid grid-cols-4 mx-40 mt-40 gap-10">
 
-          <div className="col-span-3 bg-gray-800 rounded-xl p-8">
+          <div className="col-span-3 bg-gray-950 outline outline-gray-800 rounded-xl p-8 shadow-1">
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && <p className="text-red-500 text-sm">{error}</p>}
 
               <div>
-                <label className="block text-lg font-medium">Title</label>
+                <label className="block text-lg font-medium mb-1">Title</label>
                 <p className="text-sm text-gray-400 mb-2">
                   Be specific and imagine you're asking a question to another person.
                 </p>
@@ -66,20 +66,20 @@ function Question() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full p-3 border border-gray-600 rounded-lg text-white bg-gray-800"
+                  className="w-full p-3 outline outline-gray-600 rounded-lg text-white bg-gray-950 my-1 shadow-inset-1"
                   placeholder="Enter your question title"
                 />
               </div>
 
               <div>
-                <label className="block text-lg font-medium">What are the details of your problem?</label>
+                <label className="block text-lg font-medium mb-1">What are the details of your problem?</label>
                 <p className="text-sm text-gray-400 mb-2">
                   Introduce the problem and expand on what you put in the title. Minimum 20 characters.
                 </p>
                 <textarea
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
-                  className="w-full p-3 border border-gray-600 rounded-lg text-white bg-gray-800"
+                  className="w-full p-3 outline outline-gray-600 rounded-lg focus:none text-white bg-gray-950 my-1 shadow-inset-1"
                   rows={5}
                   placeholder="Provide more details about your question"
                 ></textarea>
@@ -87,13 +87,13 @@ function Question() {
 
               <button
                 type="submit"
-                className="w-1/5 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
+                className="w-1/5 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition cursor-pointer"
               >
                 Post Question
               </button>
             </form>
           </div>          
-          <div className="bg-gray-800 rounded-xl flex justify-center items-center p-5">
+          <div className="col-span-1 h-100 outline outline-gray-800 rounded-xl mx-auto shadow-1 p-10">
             <Calendar />
           </div>
 
