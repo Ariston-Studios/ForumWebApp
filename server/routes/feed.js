@@ -17,6 +17,19 @@ router.get("/", async (req, res) => {
         }
 
         try {
+
+            const countQuery = `
+                SELECT COUNT(DISTINCT q.id) AS total_questions
+                FROM questions q
+                LEFT JOIN question_tags qt ON q.id = qt.question_id
+                LEFT JOIN tags t ON qt.tag_id = t.id
+                ${tag ? "WHERE t.name = $1" : ""}
+            `;
+
+            const countParams = tag ? [tag] : [];
+            const countResult = await db.query(countQuery, countParams);
+            const totalQuestions = countResult.rows[0].total_questions;
+
             const query = `
                 SELECT q.id, q.title, q.body, q.votes, q.created_at, q.user_id, u.username,
                     COUNT(a.id) AS answer_count,
@@ -35,7 +48,7 @@ router.get("/", async (req, res) => {
             const params = tag ? [tag, limit, offset] : [limit, offset];
 
             const result = await db.query(query, params);
-            res.json({ success: true, questions: result.rows });
+            res.json({ success: true, totalQuestions: totalQuestions, questions: result.rows });
 
         } catch (error) {
             console.log(error);

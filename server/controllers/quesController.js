@@ -56,6 +56,7 @@ export const getQuestionById = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 export const voteQuestion = async (req, res) => {
   try {
     const { id } = req.params;

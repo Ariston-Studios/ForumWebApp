@@ -36,11 +36,11 @@ function Feed() {
   }, [navigate]);
 
   return (
-    <div className="h-dvh bg-gray-950 text-white shadow-lg border-1 border-white">
+    <div className="min-h-dvh bg-gray-950 text-white border-1 border-white">
       <Header />
       <SideNavBar />
       <div className="grid grid-cols-4 mx-40 mt-40 gap-10">
-        <div className="col-span-3  rounded-xl">
+        <div className="col-span-3 rounded-xl">
           <Questions />
         </div>
         <div className="col-span-1 h-100 outline outline-gray-800 rounded-xl mx-auto shadow-1 p-10 mt-3">

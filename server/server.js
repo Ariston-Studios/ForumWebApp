@@ -6,6 +6,7 @@ import passport from "./config/passport.js";
 import db from "./config/db.js";
 import authRoutes from './routes/auth.js';
 import questionRoutes from './routes/questions.js';
+import answerRoutes from './routes/answer.js'
 import feedRouts from './routes/feed.js';
 
 dotenv.config();

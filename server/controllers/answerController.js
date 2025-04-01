@@ -92,11 +92,15 @@ export const getAnswerByQuestionId=async(req,res)=>{
   try {
     const {question_id} = req.params;
     const result = await db.query(
-      "SELECT * FROM answers WHERE question_id = $1 ORDER BY created_at DESC",[question_id]
+      `SELECT answers.*, users.username 
+       FROM answers 
+       JOIN users on answers.user_id = users.id
+       WHERE answers.question_id = $1
+       ORDER BY answers.created_at DESC`,[question_id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "No answers found for this question." });
-  }
+    }
     res.json(result.rows);
   } 
   catch(error){

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaArrowUp,
   FaArrowDown,
@@ -7,22 +7,25 @@ import {
 } from "react-icons/fa";
 import Pagination from "./Pagination";
 
-const QUESTIONS_PER_PAGE = 2;
+const QUESTIONS_PER_PAGE = 5;
+
+const defaultAvatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEFJzVsJgxmsJF_5fz29aDzE9NVB2n5eJxUQ&s";
 
 interface Question {
   id: number;
   title: string;
   body: string;
-  users: string;
+  username: string;
   created_at: string;
   avatar: string;
+  votes: number;
   comments?: Comment[];
 }
 
 interface Comment {
   id: number;
-  text: string;
-  user: string;
+  body: string;
+  username: string;
   created_at: string;
 }
 
@@ -31,27 +34,28 @@ const sampleQuestions: Question[] = [
     id: 1,
     title: "How does useEffect work in React?",
     body: "I am trying to understand how useEffect works. When does it run, and how can I control it?",
-    users: "JohnDoe",
+    username: "JohnDoe",
     created_at: new Date().toISOString(),
     avatar:
       "https://media.istockphoto.com/id/486869012/photo/goat-looks-at-us.jpg?s=612x612&w=0&k=20&c=yeu3XUkLR2-mO2zwDGNaVL5o0DITA-deNXSKNaCX6bA=",
-    comments: [
+      votes: 10,
+      comments: [
       {
         id: 1,
-        text: "useEffect runs after the render, and you can control it with dependency arrays.",
-        user: "ReactExpert",
+        body: "useEffect runs after the render, and you can control it with dependency arrays.",
+        username: "ReactExpert",
         created_at: new Date().toISOString(),
       },
       {
         id: 2,
-        text: "It also cleans up when you return a function inside it, which runs when the component unmounts or when the dependencies change.",
-        user: "CodeMaster",
+        body: "It also cleans up when you return a function inside it, which runs when the component unmounts or when the dependencies change.",
+        username: "CodeMaster",
         created_at: new Date().toISOString(),
       },
       {
         id: 3,
-        text: "Don't forget to include your dependencies in the array to avoid unnecessary re-renders.",
-        user: "DevGuru",
+        body: "Don't forget to include your dependencies in the array to avoid unnecessary re-renders.",
+        username: "DevGuru",
         created_at: new Date().toISOString(),
       },
     ],
@@ -60,21 +64,22 @@ const sampleQuestions: Question[] = [
     id: 2,
     title: "What is the difference between var, let, and const?",
     body: "I keep getting confused between var, let, and const in JavaScript. When should I use each?",
-    users: "JaneSmith",
+    username: "JaneSmith",
     created_at: new Date().toISOString(),
     avatar:
       "https://media.istockphoto.com/id/486869012/photo/goat-looks-at-us.jpg?s=612x612&w=0&k=20&c=yeu3XUkLR2-mO2zwDGNaVL5o0DITA-deNXSKNaCX6bA=",
-    comments: [
+    votes: 10,
+      comments: [
       {
         id: 1,
-        text: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
-        user: "JSExpert",
+        body: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
+        username: "JSExpert",
         created_at: new Date().toISOString(),
       },
       {
         id: 2,
-        text: "`let` is for variables that will change, and `const` is for constants that won't change.",
-        user: "SyntaxPro",
+        body: "`let` is for variables that will change, and `const` is for constants that won't change.",
+        username: "SyntaxPro",
         created_at: new Date().toISOString(),
       },
     ],
@@ -83,21 +88,22 @@ const sampleQuestions: Question[] = [
     id: 3,
     title: "What is the difference between var, let, and const?",
     body: "I keep getting confused between var, let, and const in JavaScript. When should I use each?",
-    users: "JaneSmith",
+    username: "JaneSmith",
     created_at: new Date().toISOString(),
     avatar:
       "https://media.istockphoto.com/id/486869012/photo/goat-looks-at-us.jpg?s=612x612&w=0&k=20&c=yeu3XUkLR2-mO2zwDGNaVL5o0DITA-deNXSKNaCX6bA=",
-    comments: [
+    votes: 10,
+      comments: [
       {
         id: 1,
-        text: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
-        user: "JSExpert",
+        body: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
+        username: "JSExpert",
         created_at: new Date().toISOString(),
       },
       {
         id: 2,
-        text: "`let` is for variables that will change, and `const` is for constants that won't change.",
-        user: "SyntaxPro",
+        body: "`let` is for variables that will change, and `const` is for constants that won't change.",
+        username: "SyntaxPro",
         created_at: new Date().toISOString(),
       },
     ],
@@ -106,21 +112,22 @@ const sampleQuestions: Question[] = [
     id: 4,
     title: "What is the difference between var, let, and const?",
     body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam, inventore. Ipsa atque ipsum ea voluptatibus, dignissimos magni blanditiis odio. Asperiores eius perferendis ea accusamus perspiciatis sapiente atque a dolorem sit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab incidunt unde totam libero! Quisquam quaerat ipsum vero fuga quam, aperiam a est recusandae exercitationem nulla assumenda, non nostrum corrupti! Unde? Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab incidunt unde totam libero! Quisquam quaerat ipsum vero fuga quam, aperiam a est recusandae exercitationem nulla assumenda, non nostrum corrupti! Unde?",
-    users: "JaneSmith",
+    username: "JaneSmith",
     created_at: new Date().toISOString(),
     avatar:
       "https://media.istockphoto.com/id/486869012/photo/goat-looks-at-us.jpg?s=612x612&w=0&k=20&c=yeu3XUkLR2-mO2zwDGNaVL5o0DITA-deNXSKNaCX6bA=",
-    comments: [
+    votes: 10,
+      comments: [
       {
         id: 1,
-        text: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
-        user: "JSExpert",
+        body: "Use `var` for older code, but avoid it for modern development. Stick to `let` and `const`.",
+        username: "JSExpert",
         created_at: new Date().toISOString(),
       },
       {
         id: 2,
-        text: "`let` is for variables that will change, and `const` is for constants that won't change.",
-        user: "SyntaxPro",
+        body: "`let` is for variables that will change, and `const` is for constants that won't change.",
+        username: "SyntaxPro",
         created_at: new Date().toISOString(),
       },
     ],
@@ -128,56 +135,100 @@ const sampleQuestions: Question[] = [
 ];
 
 const Questions = () => {
-  const [questions, _setQuestions] = useState<Question[]>(sampleQuestions);
+  const [totalQuestions, setTotalQuestions] = useState<number>(1);
+  const [questions, setQuestions] = useState<Question[]>(sampleQuestions);
   const [openComments, setOpenComments] = useState<number | null>(null);
+  const [comments, setComments] = useState<{ [key: number]: Comment[] }>({});
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
-  const displayedQuestions = questions.slice(
-    (currentPage - 1) * QUESTIONS_PER_PAGE,
-    currentPage * QUESTIONS_PER_PAGE
-  );
+  const totalPages = Math.ceil(totalQuestions / QUESTIONS_PER_PAGE);
 
-  const toggleComments = (questionId: number) => {
-    if (openComments === questionId) {
-      setOpenComments(null);
-    } else {
-      setOpenComments(questionId);
+  useEffect(() => {
+    async function fetchQuestions() {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/feed?limit=${QUESTIONS_PER_PAGE}&page=${currentPage}&sort=${'newest'}`, {
+          credentials: "include",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            setQuestions(data.questions);
+            setTotalQuestions(data.totalQuestions);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching questions: ", error);
+      }
     }
-  };
 
-  // async function handlePost() {
-  //     const result = await fetch(`${import.meta.env.VITE_API_URL}/api/questions/ask`)
-  // }
-  let voteCount = 10;
+    fetchQuestions();
+  }, [currentPage, vote]);
+
+  async function fetchComments(questionId: number) {
+    if (comments[questionId]) {
+      setOpenComments(openComments === questionId ? null : questionId);
+      return;
+    }
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/answers/${questionId}`, {
+        credentials: "include",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setComments((prev) => ({ ...prev, [questionId]: data }));
+      }
+    } catch (error) {
+      console.error("Error fetching comments: ", error);
+    }
+    setOpenComments(questionId);
+  }
+
+  async function vote(questionId: number, vote: number) {
+    const voteType = (vote > 0) ? "upvote" : "downvote";
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/questions/${questionId}/vote`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({type: voteType}),
+        credentials: "include",
+      });
+      if(res.ok) {
+        console.log("Successfully Voted!");
+      }
+    } catch (error) {
+      console.error("Error voting: ", error);
+    }
+  }
 
   return (
     <div className="space-y-6 p-4">
-      {displayedQuestions.map((q) => (
+      {questions.map((q) => (
         <div key={q.id} className="bg-[#030715] rounded-2xl pb-4 flex space-x-4 items-start outline outline-gray-800 p-5 shadow-1">
           <img
-            src={q.avatar}
-            alt={`${q.users}'s avatar`}
+            src={q.avatar || defaultAvatar}
+            alt={`${q.username}'s avatar`}
             className="w-12 h-12 rounded-full object-cover"
           />
           <div className="flex-1">
             <h3 className="text-lg font-semibold mb-2">{q.title}</h3>
             <p className="text-gray-300 my-1">{q.body}</p>
             <p className="text-sm text-gray-400 mt-2">
-              Asked by {q.users} • {new Date(q.created_at).toLocaleString()}
+              Asked by {q.username} • {new Date(q.created_at).toLocaleString()}
             </p>
 
             <div className="flex items-center space-x-4 my-1">
-              <button className="flex items-center text-green-500 hover:text-green-600 cursor-pointer">
+              <button className="flex items-center text-green-500 hover:text-green-600 cursor-pointer" onClick={() => vote(q.id, 1)}>
                 <FaArrowUp className="mr-1" />
                 <span>Upvote</span>
               </button>
               
               <span className="text-gray-700">•</span>
-              <span>{voteCount}</span>
+              <span>{q.votes}</span>
               <span className="text-gray-700">•</span>
 
-              <button className="flex items-center text-red-500 hover:text-red-600 cursor-pointer">
+              <button className="flex items-center text-red-500 hover:text-red-600 cursor-pointer"  onClick={() => vote(q.id, -1)}>
                 <FaArrowDown className="mr-1" />
                 <span>Downvote</span>
               </button>
@@ -186,7 +237,7 @@ const Questions = () => {
 
               <button
                 className="flex items-center text-gray-50 hover:text-gray-400 cursor-pointer"
-                onClick={() => toggleComments(q.id)}
+                onClick={() => fetchComments(q.id)}
               >
                 <FaCommentDots className="mr-1" />
                 <span>Comment</span>
@@ -200,16 +251,17 @@ const Questions = () => {
               </button>
             </div>
 
+            
+
             {openComments === q.id && (
               <div className="mt-4 space-y-2">
                 <h4 className="text-md font-semibold">Comments</h4>
-                {q.comments && q.comments.length > 0 ? (
-                  q.comments.map((comment) => (
+                {comments[q.id] && comments[q.id].length > 0 ? (
+                  comments[q.id].map((comment) => (
                     <div key={comment.id} className="ml-6 border-l-2 pl-4">
-                      <p className="text-gray-50">{comment.text}</p>
+                      <p className="text-gray-50">{comment.body}</p>
                       <p className="text-sm text-gray-400">
-                        - {comment.user},{" "}
-                        {new Date(comment.created_at).toLocaleString()}
+                        - {comment.username}, {new Date(comment.created_at).toLocaleString()}
                       </p>
                     </div>
                   ))
@@ -239,7 +291,7 @@ const Questions = () => {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={(page) => setCurrentPage(page)}
       />
     </div>
     // <div className="space-y-6 p-4">
