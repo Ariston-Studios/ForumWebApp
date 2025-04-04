@@ -26,6 +26,8 @@ function Feed() {
           if (data.needsUsername) {
             setIsModalOpen(true);
           }
+        } else {
+          navigate("/login");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);

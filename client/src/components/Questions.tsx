@@ -162,7 +162,7 @@ const Questions = () => {
     }
 
     fetchQuestions();
-  }, [currentPage, vote]);
+  }, [currentPage]);
 
   async function fetchComments(questionId: number) {
     if (comments[questionId]) {
@@ -183,22 +183,38 @@ const Questions = () => {
     setOpenComments(questionId);
   }
 
-  async function vote(questionId: number, vote: number) {
-    const voteType = (vote > 0) ? "upvote" : "downvote";
+  async function vote(questionId: number, voteValue: number) {
+    const voteType = (voteValue > 0) ? "upvote" : "downvote";
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) =>
+        q.id === questionId ? { ...q, votes: q.votes + voteValue } : q
+      )
+    );
+  
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/questions/${questionId}/vote`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({type: voteType}),
-        credentials: "include",
-      });
-      if(res.ok) {
-        console.log("Successfully Voted!");
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/questions/${questionId}/vote`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ type: voteType }),
+          credentials: "include",
+        }
+      );
+      if (!res.ok) {
+        throw new Error("Vote failed");
       }
     } catch (error) {
-      console.error("Error voting: ", error);
+      console.error("Error voting:", error);
+  
+      // Revert state if API call fails
+      setQuestions((prevQuestions) =>
+        prevQuestions.map((q) =>
+          q.id === questionId ? { ...q, votes: q.votes - voteValue } : q
+        )
+      );
     }
   }
 
@@ -294,83 +310,6 @@ const Questions = () => {
         onPageChange={(page) => setCurrentPage(page)}
       />
     </div>
-    // <div className="space-y-6 p-4">
-    //   {questions.length > 0 ? (
-    //     questions.map((q) => (
-    //       <div key={q.id} className="border-b pb-4 flex space-x-4 items-start">
-    //         <img
-    //           src={q.avatar}
-    //           alt={`${q.users}'s avatar`}
-    //           className="w-12 h-12 rounded-full object-cover"
-    //         />
-    //         <div className="flex-1">
-    //           <div>
-    //             <h3 className="text-lg font-semibold">{q.title}</h3>
-    //             <p className="text-gray-600">{q.body}</p>
-    //             <p className="text-sm text-gray-400">
-    //               Asked by {q.users} • {new Date(q.created_at).toLocaleString()}
-    //             </p>
-    //           </div>
-
-    //           <div className="flex items-center space-x-4 mt-2">
-    //             <button className="flex items-center text-green-500 hover:text-green-600">
-    //               <FaArrowUp className="mr-1" />
-    //               <span>Upvote</span>
-    //             </button>
-
-    //             <button className="flex items-center text-red-500 hover:text-red-600">
-    //               <FaArrowDown className="mr-1" />
-    //               <span>Downvote</span>
-    //             </button>
-
-    //             <button
-    //               className="flex items-center text-gray-600 hover:text-gray-800"
-    //               onClick={() => toggleComments(q.id)}
-    //             >
-    //               <FaCommentDots className="mr-1" />
-    //               <span>Comment</span>
-    //             </button>
-
-    //             <button className="flex items-center text-gray-600 hover:text-gray-800">
-    //               <FaShareAlt className="mr-1" />
-    //               <span>Share</span>
-    //             </button>
-    //           </div>
-    //           {openComments === q.id && (
-    //             <div className="mt-4 space-y-2">
-    //               <h4 className="text-md font-semibold">Comments</h4>
-    //               {q.comments && q.comments.length > 0 ? (
-    //                 q.comments.map((comment) => (
-    //                   <div key={comment.id} className="ml-6 border-l-2 pl-4">
-    //                     <p className="text-gray-800">{comment.text}</p>
-    //                     <p className="text-sm text-gray-400">
-    //                       - {comment.user}, {new Date(comment.created_at).toLocaleString()}
-    //                     </p>
-    //                   </div>
-    //                 ))
-    //               ) : (
-    //                 <p className="text-gray-500">No comments yet. Be the first to comment!</p>
-    //               )}
-
-    //               <div className="mt-2">
-    //                 <input
-    //                   type="text"
-    //                   placeholder="Write a comment..."
-    //                   className="w-full p-2 border rounded"
-    //                 />
-    //                 <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
-    //                   Post Comment
-    //                 </button>
-    //               </div>
-    //             </div>
-    //           )}
-    //         </div>
-    //       </div>
-    //     ))
-    //   ) : (
-    //     <p className="text-center text-gray-500">No questions found.</p>
-    //   )}
-    // </div>
   );
 };
 

@@ -14,7 +14,11 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(cors({ origin: process.env.ORIGIN, credentials: true }));
+app.use(cors({ origin: process.env.ORIGIN, 
+    credentials: true, 
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,7 +26,7 @@ app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
+    cookie: { secure: false, httpOnly: true, sameSite: "lax", maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 app.use(passport.initialize());
@@ -35,16 +39,6 @@ app.get("/", async (req, res) => {
     } catch (error) {
         console.error("Error fetching users: ", error);
         res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-// To check if sessions are working
-app.get("/check", (req, res) => {
-    if (req.isAuthenticated()) {
-        console.log("Authenticated!!");
-        res.sendStatus(200);
-    } else {
-        res.sendStatus(401);
     }
 });
 
