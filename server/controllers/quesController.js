@@ -3,7 +3,7 @@ import db from "../config/db.js";
 
 export const createQuestion = async (req, res) => {
   try {
-    const { title, body, users: username } = req.body;
+    const { title, body, username } = req.body;
 
     if (!title || !body || !username) {
       return res.status(400).json({ message: "Title, body, and username are required" });

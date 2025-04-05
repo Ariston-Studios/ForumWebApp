@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import SideNavBar from "../components/SideNavBar";
 import Header from "../components/Header";
 import Calendar from "../components/Calendar";
+import { useUser } from "@/context/UserContext";
 
 function Question() {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [error, setError] = useState(""); // State to store validation errors
+  const {user} = useUser();
   const navigate = useNavigate();
 
   async function handleSubmit (e: React.FormEvent) {
@@ -26,10 +28,10 @@ function Question() {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000"; // Fallback API URL
-      const res = await fetch(`${apiUrl}/api/questions`, {
+      const res = await fetch(`${apiUrl}/api/questions/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, details }),
+        body: JSON.stringify({ title, body: details, username:  user?.username}),
         credentials: "include",
       });
 

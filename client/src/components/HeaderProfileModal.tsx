@@ -1,8 +1,10 @@
+import { useUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function HeaderProfileModal() {
 
     const navigate = useNavigate();
+    const {user} = useUser();
 
     async function handleLogOutClick() {
         try {
@@ -29,7 +31,7 @@ export default function HeaderProfileModal() {
     <div className="absolute -left-52 top-20 max-h-100 w-70 p-5 bg-[#060A15] outline outline-gray-800 rounded-2xl shadow-2xl transition-all ease-in-out duration-100">
       <div className="flex items-center gap-5 mb-5 rounded-lg p-5 outline">
         <img className="rounded-full" src="https://picsum.photos/50" alt="" />
-        <span className="font-bold">DizValheim</span>
+        <span className="font-bold">{user?.username}</span>
       </div>
       <button onClick={handleLogOutClick} className="flex items-center w-full gap-2 p-2 rounded-lg hover:bg-[#151821] cursor-pointer">
         <img

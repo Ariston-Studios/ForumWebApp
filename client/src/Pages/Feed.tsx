@@ -22,7 +22,6 @@ function Feed() {
         if (res.ok) {
           const data = await res.json();
           setUser(data);
-          console.log(data);
           if (data.needsUsername) {
             setIsModalOpen(true);
           }

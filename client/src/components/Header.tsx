@@ -2,11 +2,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { useEffect, useState } from "react";
 import HeaderProfileModal from "./HeaderProfileModal";
+import { useUser } from "@/context/UserContext";
+
+
+// const sampleUser : User = {id: 1, username: 'StylishName', name: 'John Doe', email_id: 'johndoe@email.com'};
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-
+  
+  const { setUser } = useUser();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
 
@@ -37,6 +42,8 @@ function Header() {
         });
 
         if (res.ok) {
+          const data = await res.json();
+          setUser(data);
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
